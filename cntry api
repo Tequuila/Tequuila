@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Countries API</title> 
+</head>
+<body>
+    
+    <button id="button"> Load Countries </button>
+    <br></br>
+    <h1> Country Names </h1>
+    <div id="names"></div>
+
+    <script>
+        document.getElementById('button').addEventListener('click', loadNames);
+
+    
+        function loadNames(){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET','https://restcountries.com/v3.1/all', true);
+            xhr.onload = function(){
+                 if(this.status == 200){
+                     var names = JSON.parse(this.responseText);
+                    
+                     var output = '';
+                     for(var i in names){
+                     output +=
+                        '<div class="name">' +
+                           '<ul>'
+                           '<li>altSpellings: '+names[i].altSpellings+'</li>' +
+                           '<li>capital: '+names[i].capital+'</li>' +
+                           '<li>maps: '+names[i].maps+'</li>'+
+                           '<li>population: '+names[i].population+'</li>'+
+                           '<ul/>' +
+                        '</div>';  
+                }
+                    
+                //  document.getElementById('names').innerHTML = output; 
+                 console.log(names);
+                 }
+            }
+
+            xhr.send();
+        }
+
+    </script>
+
+</body>
+</html>
